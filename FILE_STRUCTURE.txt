@@ -1,0 +1,227 @@
+=====================================================
+DOCTOR APPOINTMENT BOOKING SYSTEM - FILE STRUCTURE
+=====================================================
+
+PROJECT ROOT
+├── 📖 DOCUMENTATION FILES (Read these first!)
+│   ├── README.md                    ← Start here for overview
+│   ├── QUICKSTART.md               ← 5-minute setup guide
+│   ├── COMPLETE_GUIDE.md            ← Full features and usage
+│   ├── SETUP_GUIDE.md               ← Detailed troubleshooting
+│   ├── IMPLEMENTATION_SUMMARY.md    ← Technical architecture
+│   ├── BUILD_SUMMARY.md             ← What was built
+│   └── FILE_STRUCTURE.txt           ← This file
+│
+├── 🌐 FRONTEND (React/Next.js)
+│
+├── App Directory (Next.js Pages)
+│   ├── app/
+│   │   ├── page.jsx                 ← HOME PAGE
+│   │   │   └── Features: Navigation, setup info, backend health check
+│   │   │
+│   │   ├── doctors/
+│   │   │   ├── page.jsx             ← DOCTOR LISTING PAGE
+│   │   │   │   └── Features: List, search, filter doctors
+│   │   │   │
+│   │   │   └── [id]/
+│   │   │       └── page.jsx         ← BOOKING PAGE
+│   │   │           └── Features: Doctor details, time slots, book
+│   │   │
+│   │   └── doctor-portal/
+│   │       └── page.jsx             ← DOCTOR DASHBOARD
+│   │           └── Features: View appointments, update status
+│   │
+├── React Components
+│   ├── components/
+│   │   ├── DoctorCard.jsx           ← Display doctor card
+│   │   ├── DoctorFilter.jsx         ← Search & filter bar
+│   │   └── ui/                      ← shadcn components (pre-existing)
+│   │
+├── Utilities & Services
+│   ├── lib/
+│   │   ├── api.js                   ← API client (fetch functions)
+│   │   ├── utils.ts                 ← Helper utilities (pre-existing)
+│   │   └── fonts.ts                 ← Font setup (pre-existing)
+│   │
+├── Static Files
+│   └── public/                      ← Images & static assets
+│
+├── Configuration
+│   ├── package.json                 ← Frontend dependencies
+│   ├── next.config.mjs              ← Next.js config
+│   ├── tailwind.config.ts           ← Tailwind CSS config
+│   ├── tsconfig.json                ← TypeScript config
+│   ├── postcss.config.mjs           ← PostCSS config
+│   ├── app/globals.css              ← Global styles
+│   └── components.json              ← shadcn components config
+│
+│
+├── 🔧 BACKEND (Node.js/Express)
+│
+└── doctor-appointment-backend/
+    │
+    ├── 📄 server.js                 ← MAIN SERVER FILE
+    │   └── Starts Express on port 5000
+    │   └── Connects to MongoDB
+    │   └── Registers routes
+    │
+    ├── 📝 Configuration
+    │   ├── package.json             ← Dependencies
+    │   ├── .env                     ← Environment variables
+    │   └── .gitignore               ← Git ignore rules
+    │
+    ├── 📁 config/
+    │   └── db.js                    ← MongoDB connection setup
+    │                                   └── connectDB() & getDB()
+    │
+    ├── 📁 models/ (Data Models)
+    │   ├── Doctor.js                ← Doctor data model
+    │   │   └── Methods: findAll, findById, findBySpecialty, create, etc.
+    │   │
+    │   ├── Appointment.js           ← Appointment data model
+    │   │   └── Methods: create, findByDoctorId, updateStatus, etc.
+    │   │
+    │   └── Patient.js               ← Patient model (placeholder)
+    │
+    ├── 📁 controllers/ (Business Logic)
+    │   ├── doctorController.js
+    │   │   ├── getAllDoctors()      ← GET /api/doctors
+    │   │   ├── getDoctorById()      ← GET /api/doctors/:id
+    │   │   └── getDoctorAppointments() ← GET /api/doctors/:id/appointments
+    │   │
+    │   └── appointmentController.js
+    │       ├── createAppointment()  ← POST /api/appointments
+    │       ├── getAppointmentsByDoctor() ← GET /appointments/doctor/:id
+    │       └── updateAppointmentStatus() ← PUT /appointments/:id
+    │
+    ├── 📁 routes/ (API Endpoints)
+    │   ├── doctors.js
+    │   │   ├── GET /              → getAllDoctors
+    │   │   ├── GET /:id           → getDoctorById
+    │   │   └── GET /:id/appointments → getDoctorAppointments
+    │   │
+    │   └── appointments.js
+    │       ├── POST /             → createAppointment
+    │       ├── GET /doctor/:id    → getAppointmentsByDoctor
+    │       └── PUT /:id           → updateAppointmentStatus
+    │
+    └── 📁 scripts/ (Utilities)
+        └── seedDoctors.js           ← Populate sample doctors
+            └── Creates 6 doctors with time slots
+
+
+=====================================================
+API ENDPOINTS (All start with http://localhost:5000/api)
+=====================================================
+
+DOCTOR ENDPOINTS
+  GET    /doctors                    List all doctors
+  GET    /doctors?specialty=X        Filter by specialty
+  GET    /doctors/:id                Get single doctor details + slots
+  GET    /doctors/:id/appointments   Get doctor's appointments
+
+APPOINTMENT ENDPOINTS
+  POST   /appointments               Create new appointment
+  GET    /appointments/doctor/:id    Get doctor's appointments
+  PUT    /appointments/:id           Update appointment status
+
+HEALTH CHECK
+  GET    /health                     Check backend status
+
+
+=====================================================
+DATABASE COLLECTIONS
+=====================================================
+
+DOCTORS
+  _id, name, specialty, experience, email, phone, bio, image
+  availableSlots: [{date, startTime, endTime, isBooked}]
+
+APPOINTMENTS
+  _id, doctorId, doctorName, patientName, patientEmail, patientPhone
+  appointmentDate, appointmentTime, status, notes
+
+
+=====================================================
+HOW TO NAVIGATE THIS PROJECT
+=====================================================
+
+First Time Setup?
+  1. Read: README.md
+  2. Read: QUICKSTART.md
+  3. Follow setup instructions
+  4. Run backend & frontend
+
+Learning the System?
+  1. Read: COMPLETE_GUIDE.md
+  2. Check: API examples
+  3. See: Database schema
+  4. Try: All features
+
+Need Help?
+  1. Check: SETUP_GUIDE.md (troubleshooting)
+  2. Check: COMPLETE_GUIDE.md (FAQ)
+  3. Review: Browser console (F12)
+  4. Check: Backend terminal
+
+Want Technical Details?
+  1. Read: IMPLEMENTATION_SUMMARY.md
+  2. Review: Code comments
+  3. Check: this file
+
+Customizing Code?
+  1. Backend routes in: doctor-appointment-backend/routes/
+  2. Backend logic in: doctor-appointment-backend/controllers/
+  3. Frontend pages in: app/
+  4. Frontend components in: components/
+  5. API client in: lib/api.js
+
+
+=====================================================
+QUICK REFERENCE
+=====================================================
+
+Start Backend:     cd doctor-appointment-backend && npm start
+Start Frontend:    npm run dev
+Seed Doctors:      node doctor-appointment-backend/scripts/seedDoctors.js
+Access App:        http://localhost:3000
+API Base URL:      http://localhost:5000/api
+
+
+=====================================================
+FILE STATISTICS
+=====================================================
+
+Backend Files:     10 files
+Frontend Files:    7 files
+Config Files:      8 files
+Documentation:     7 files
+Total:             32 files
+
+Backend Code:      500+ lines
+Frontend Code:     700+ lines
+Documentation:     2000+ lines
+
+
+=====================================================
+WHAT'S INCLUDED
+=====================================================
+
+✅ Express.js Backend
+✅ React Frontend
+✅ MongoDB Models
+✅ 7 API Endpoints
+✅ Seed Script
+✅ 6 Sample Doctors
+✅ Patient Booking Flow
+✅ Doctor Dashboard
+✅ Search & Filter
+✅ Status Management
+✅ Error Handling
+✅ Responsive Design
+✅ Complete Documentation
+
+
+=====================================================
+START HERE: README.md or QUICKSTART.md
+=====================================================
